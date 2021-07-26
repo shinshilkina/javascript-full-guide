@@ -1,15 +1,31 @@
 const startButton = document.querySelector('#start')
 const gameArea = document.querySelector('#game')
 const time = document.querySelector('#time')
+const result = document.getElementById('result')
+const timeHeader = document.getElementById('time-header')
+const resultHeader = document.getElementById('result-header')
+const timeInput = document.getElementById('game-time')
 let score = 0
 let isGameStarted = false
 
 startButton.addEventListener('click', startGame)
 gameArea.addEventListener('click', handleBoxClick)
+timeInput.addEventListener('input', setGameTime)
+
+function show(element) {
+  element.classList.remove('hide')
+}
+
+function hide(element) {
+  element.classList.add('hide')
+}
 
 function startGame() {
+  score = 0
+  setGameTime()
+  timeInput.setAttribute('disabled', 'true')
+  hide(startButton)
   isGameStarted = true
-  startButton.classList.add('hide')
   gameArea.style.backgroundColor = '#fff'
 
   const interval = setInterval(function() {
@@ -28,7 +44,23 @@ function startGame() {
 
 function endGame() {
   isGameStarted = false
+  setGameScore()
+  show(startButton)
+  gameArea.innerHTML = ''
+  gameArea.style.backgroundColor = '#ccc'
+  hide(timeHeader)
+  show(resultHeader)
+  timeInput.removeAttribute('disabled')
+}
 
+function setGameScore() {
+  result.textContent = score.toString()
+}
+
+function setGameTime() {
+  time.textContent = +timeInput.value
+  show(timeHeader)
+  hide(resultHeader)
 }
 
 function renderBox() {

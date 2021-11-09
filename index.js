@@ -66,6 +66,8 @@ function setGameTime() {
 function renderBox() {
   gameArea.innerHTML = ''
 
+  const color = Math.floor(Math.random()*16777215).toString(16);
+  console.log("🚀 ~ file: index.js ~ line 70 ~ renderBox ~ color", color)
   const box = document.createElement('div')
   const boxSize = getRandom(30, 100)
   const gameAreaSize = gameArea.getBoundingClientRect()
@@ -74,7 +76,9 @@ function renderBox() {
 
   box.style.height = box.style.width = `${boxSize}px`
   box.style.position = 'absolute'
-  box.style.backgroundColor = '#000'
+  box.style.backgroundColor = `#${color}`
+  box.style.boxShadow = '1px 6px 10px grey'
+  box.style.borderRadius = '4px'
   box.style.top = `${getRandom(0, maxTop)}px`
   box.style.left = `${getRandom(0, maxLeft)}px`
   box.style.cursor = 'pointer'
